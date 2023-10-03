@@ -39,5 +39,4 @@ public class Schedules {
 
     @Column
     private List<LocalDateTime> hours;
-
 }
