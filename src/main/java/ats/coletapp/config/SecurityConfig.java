@@ -2,7 +2,6 @@ package ats.coletapp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,10 +35,10 @@ public class SecurityConfig {
                 return http
                                 .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests((auth) -> auth
-                                                .requestMatchers(HttpMethod.POST, "api/v1/auth/login").permitAll()
+                                                .requestMatchers( "/auth/login").permitAll()
                                                 .requestMatchers("/swagger-ui/**", "/api-docs/**").permitAll()
-                                                .requestMatchers(HttpMethod.POST, "api/v1/teachers").hasRole("SECRETARY")
-                                                .requestMatchers(HttpMethod.POST, "api/v1/students").hasRole("SECRETARY")
+                                                .requestMatchers("/","/index.html","/css/**","/js/**", "/img/**").permitAll() 
+                                                .requestMatchers("/cadUser").permitAll()
                                                 .anyRequest().authenticated())
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

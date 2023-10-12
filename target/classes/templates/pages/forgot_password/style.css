@@ -1,0 +1,97 @@
+/* Estilos gerais */
+body {
+    font-family: "Poppins-Bold", Helvetica;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Estilos para o contêiner de recuperação de senha */
+.email-container {
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    border-radius: 8px;
+    text-align: left;
+    width: 400px;
+    display: block; /* Inicialmente oculto */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Estilos para o contêiner de código PIN */
+.recovery-code-container {
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    width: 400px;
+    display: none; /* Inicialmente oculto */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Estilos para o contêiner de nova senha */
+.new-password-container {
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    border-radius: 8px;
+    text-align: left;
+    width: 400px;
+    display: none; /* Inicialmente oculto */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 16px;
+}
+/* Estilos para os títulos */
+h1, h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para os botões */
+button {
+    width: 100%;
+    padding: 16px;
+    background-color: #F9A400;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left; /* Alinhar as labels à esquerda */
+}
+
+/* Estilos para os campos de entrada */
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+    width: 90%;
+    padding: 16px 5% 14px 5%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Estilos de validação */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}

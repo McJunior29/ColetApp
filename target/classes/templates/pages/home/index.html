@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="../../css/home/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="header" >
+        <div class="header-content">
+         
+            <div class="label"><div class="colet">Colet</div><div class="app">App</div></div>
+        </div>
+        <div class="header-buttons">
+            <div class="button-container">
+                <button id="denuncias-button" >Denúncias</button>
+                <button id="rotas-button" >Rotas</button>
+            </div>
+        </div>
+    </div>
+    <div class="feed-container" id="feed-container">
+        <div class="col-md-12 col-12 mx-auto" th:each="complaint : ${listComplaints}">
+            <div class="card text-center">
+                <div class="card-body">
+                    <img th:src="${complaint.getPhotoUrl()}" class="card-img-top" alt="...">
+                    <p th:text="${complaint.getDescription()}" class="card-text"></p>
+                </div>
+                <div th:text="${complaint.getCreatedAt()}" class="card-footer text-muted">
+                </div>
+              </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</html>

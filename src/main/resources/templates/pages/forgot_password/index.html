@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="email-container">
+        <div class="recovery-box">
+                <h1>Esqueceu sua senha?</h1>
+                <p>Digite seu email</p>
+            <div class="recovery-form">
+                <form id="recovery-form">
+                    <div class="form-group">
+                    
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="send-code-button">Enviar Código</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="recovery-code-container" id="recovery-code-container">
+        <div class="recovery-code-box">
+            <h2>Digite o código</h2>
+            <p>Um código de 6 dígitos foi enviado para seu e-mail verifique e digite abaixo</p>
+            <input type="text" id="recovery-code-input" placeholder="Digite o código">
+            <button id="verify-code-button">Verificar</button>
+        </div>
+    </div>
+    <div class="new-password-container" id="new-password-container">
+        <div class="new-password-box">
+            <h2>Digite sua nova senha</h2>
+            <div class="form-group">
+                <label for="new-password">Nova Senha</label>
+                <input type="password" id="new-password" name="new-password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-new-password">Confirmar Nova Senha</label>
+                <input type="password" id="confirm-new-password" name="confirm-new-password" required>
+            </div>
+            <button id="set-new-password-button">Alterar senha</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

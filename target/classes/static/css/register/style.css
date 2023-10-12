@@ -1,0 +1,104 @@
+/* Estilos gerais */
+body {
+    font-family: "Poppins-Bold", Helvetica;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.signup-container {
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    width: 400px; /* Largura do container */
+    display: flex;
+    flex-direction: column; /* Mudança aqui para empilhar elementos verticalmente */
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-info {
+    flex: 1;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.signup-form {
+    flex: 1;
+    display: flex;
+    width: 90%; /* Largura dos campos de entrada */
+    max-width: 300px; /* Largura máxima dos campos de entrada */
+    padding: 16px;
+    text-align: left; /* Alinhar o texto à esquerda */
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 16px;
+}
+.form-number {
+    width: 30%;
+    margin-bottom: 20px;
+    margin-left: 16px;
+}
+
+label {
+    display: block;
+
+    margin-bottom: 5px;
+    text-align: left; /* Alinhar as labels à esquerda */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 90%;
+    padding: 16px 5% 14px 5%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+}
+
+
+.form-group-street-number{
+    display: flex;
+}
+button {
+    width: 100%;
+    padding: 16px 10px;
+    background-color: #F9A400;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+/* Estilos de validação */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Estilos responsivos */
+@media screen and (max-width: 600px) {
+    .signup-container {
+        width: 100%;
+        max-width: none;
+        padding: 10px;
+    }
+
+    .signup-form {
+        padding: 0 10px; /* Reduz o padding lateral para 10px */
+    }
+}
