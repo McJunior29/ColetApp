@@ -1,5 +1,9 @@
 package ats.coletapp.service.user; 
 
+import java.security.SecureRandom;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -7,40 +11,41 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ats.coletapp.controller.dto.person.PersonRequest;
+import ats.coletapp.controller.dto.person.PersonUpdateRequest;
 import ats.coletapp.controller.dto.user.UserRecoveryLoginDTO;
 import ats.coletapp.controller.dto.user.UserRecoveryPasswordDTO;
 import ats.coletapp.controller.dto.user.UserResponse;
-import ats.coletapp.controller.dto.user.UserUpdateDTO;
 import ats.coletapp.controller.dto.user.VerificationCodeDTO;
 import ats.coletapp.exceptions.ConfirmPasswordException;
 import ats.coletapp.exceptions.ConflictException;
 import ats.coletapp.exceptions.ResourceNotFoundException;
-import ats.coletapp.model.User;
+import ats.coletapp.model.Address;
 import ats.coletapp.model.Enum.PermissionTypeEnum;
+import ats.coletapp.model.Person;
+import ats.coletapp.model.User;
 import ats.coletapp.repository.UserRepository;
+import ats.coletapp.service.address.AddressService;
 import ats.coletapp.service.person.PersonService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.transaction.Transactional;
-
-import java.security.SecureRandom;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService{
 
     private final UserRepository userRepository;
     private final PersonService personService;
+    private final AddressService addressService;
     private final JavaMailSender emailSender;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, JavaMailSender emailSender,PasswordEncoder passwordEncoder,PersonService personService ) {
+    public UserService(UserRepository userRepository, JavaMailSender emailSender,PasswordEncoder passwordEncoder,PersonService personService, AddressService addressService ) {
         this.userRepository = userRepository;
         this.emailSender = emailSender;
         this.personService = personService;
         this.passwordEncoder = passwordEncoder;
+        this.addressService = addressService;
     }
 
     public User save(User user){
@@ -85,7 +90,7 @@ public class UserService{
     public void userRecoveryPassword(UserRecoveryLoginDTO userRecoveryLoginDTO ) throws MessagingException {
         
         try{
-            User user = findByLogin(userRecoveryLoginDTO.getLogin());
+        User user = findByLogin(userRecoveryLoginDTO.getLogin());
         String email = user.getLogin();
         MimeMessage mimeMessage = emailSender.createMimeMessage();
 
@@ -101,7 +106,7 @@ public class UserService{
         user.setVerificationCode(verificationCode);
         user = this.saveUser(user);
 
-        String htmlContent = "<html><div style='margin-left: 50px; margin-right: 50px;'><body style='background-color: #0085FF; color: white; text-align: center; padding-top:20px;'>"
+        String htmlContent = "<html><div style='margin-left: 50px; margin-right: 50px;'><body style='background-color: #f9a400; color: white; text-align: center; padding-top:20px;'>"
                 + "<h2 style='color: white;font-size: 24px;'>Envio de Senha</h2>"
                 + "<p style='color: white;font-size: 18px;'>Olá,</p>"
                 + "<p style='color: white;font-size: 18px;'>Aqui está a senha de acesso ao sistema:</p>"
@@ -112,7 +117,7 @@ public class UserService{
         helper.setTo(email);
         helper.setSubject("Email para recuperação de Senha");
         helper.setText("", htmlContent);
-        helper.setFrom("testes.caninde@darmlabs.ifce.edu.br");
+        helper.setFrom("coletapp9@gmail.com");
         
         emailSender.send(mimeMessage);
 
@@ -135,17 +140,37 @@ public class UserService{
         return response;
     }
 
-    public User update(Long id, UserUpdateDTO requestDTO) {
+    @Transactional
+    public User update(Long id, PersonUpdateRequest requestDTO) {
+        
         User oldUser = this.searchByID(id);
 
-        if (!oldUser.getLogin().equals(requestDTO.getLogin())
-                && this.existsByLogin(requestDTO.getLogin())) {
-
+        if (!oldUser.getLogin().equals(requestDTO.email())
+                && this.existsByLogin(requestDTO.email())) {
             throw new ConflictException("The email provided is already being used.");
         }
-        User newUser = requestDTO.toUser(id);
-        newUser.setLogin(requestDTO.getLogin());
-        return userRepository.save(this.fillUpdateUser(oldUser, newUser));
+
+        User newUser = oldUser;
+        newUser.setLogin(requestDTO.email());
+        newUser.setPassword(passwordEncoder.encode(requestDTO.password()));    
+
+        Address address = newUser.getPerson().getAddress();
+
+        address.setStreet(requestDTO.street());
+        address.setNumber(requestDTO.number());
+        address.setNeighborhood(requestDTO.neighborhood());
+        this.addressService.save(address);
+
+        Person person = newUser.getPerson();
+
+        person.setEmail(requestDTO.email());
+        person.setName(requestDTO.name());
+        person.setAddress(address);
+        this.personService.savePerson(person);
+
+        newUser.setPerson(person);
+
+        return userRepository.save(newUser);
     }
 
     @Transactional
@@ -157,11 +182,6 @@ public class UserService{
 
     public User searchByLogin(String login) {
         return this.findByLogin(login);
-    }
-
-    public User fillUpdateUser(User oldUser, User newUser) {
-        newUser.setPassword(oldUser.getPassword());
-        return newUser;
     }
 
     public boolean existsByLogin(String login) {

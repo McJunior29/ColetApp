@@ -1,24 +1,25 @@
 body {
     font-family: "Poppins-Bold", Helvetica;
-    background-color: #f2f2f2;
+    background-color: #FFFFFF;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden;
 }
 
 .login-container {
     background-color: #fff;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     height: 100vh;
     padding: 16px;
     border-radius: 8px;
     text-align: center;
-    width: 400px;
+    width: 800px;
     display: flex; /* Adiciona display flex para alinhar horizontalmente */
     justify-content: center; /* Centraliza horizontalmente */
     align-items: center; /* Centraliza verticalmente */
+    margin-right: 32px;
 }
 
 /* Estilos para o formulário de login */
@@ -26,11 +27,19 @@ body {
     flex: 1;
     padding: 16px;
     text-align: center; /* Alinha o texto à esquerda dentro do formulário */
+    margin-right: 32px;
 }
 
+.title {
+    font-family: "Poppins-Bold", Helvetica;
+    font-weight: 600;
+    font-size: 40px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
 .logo {
-    width: 130px;
-    height: 150px;
+    width: 160px;
+    height: 180px;
     margin-top: 16px;
 }
 
@@ -39,19 +48,20 @@ body {
   display: flex;
   justify-content: center;
   margin-top: 16px;
+  margin-bottom: 100px;
 }
 
 .colet {
   font-family: "Poppins-Bold", Helvetica;
   font-weight: 600;
-  font-size: 40px;
+  font-size: 60px;
   letter-spacing: 0;
   line-height: normal;
 }
 .app {
     font-family: "Poppins-Bold", Helvetica;
     font-weight: 700;
-    font-size: 40px;
+    font-size: 60px;
     letter-spacing: 0;
     line-height: normal;
     color: #F9A400;
@@ -93,7 +103,6 @@ button {
 .login-info {
     flex: 1;
     text-align: center;
-
 }
 
 h2 {
@@ -149,10 +158,10 @@ p {
     font-size: 14px;
 }
 
-/* Estilos para dispositivos móveis (largura máxima de 600px) */
 @media screen and (max-width: 600px) {
     body {
         align-items: flex-start; /* Alinhar ao topo */
+        overflow: scroll;
     }
 
     .login-container {
@@ -160,6 +169,12 @@ p {
         max-width: none; /* Remover a largura máxima */
         height: 100vh;
         padding: 10px; /* Reduzir o preenchimento */
+        margin-right: 0px;
+    }
+
+    .logo,
+    .label {
+        display: none; /* Ocultar a logo e a label em dispositivos móveis */
     }
 
     .login-box {
@@ -172,26 +187,15 @@ p {
         text-align: center; /* Alinhar o texto ao centro */
     }
 
-    .logo {
-        margin-top: 0; /* Remover a margem superior */
-    }
-
-    .label {
-        margin-top: 10px; /* Adicionar uma pequena margem superior */
-    }
-
     .colet,
     .app {
         font-size: 32px; /* Reduzir o tamanho da fonte */
     }
 
-    .login-form {
-        padding: 10px; /* Reduzir o preenchimento */
-    }
 
     input[type="email"],
     input[type="password"] {
-        width: 100%; /* Preencher a largura do contêiner */
+        width: 90%; /* Preencher a largura do contêiner */
     }
 
     .remember-forgot {
@@ -213,61 +217,3 @@ p {
         margin-top: 20px; /* Aumentar a margem superior */
     }
 }
-/* Estilos gerais */
-body {
-    font-family: "Poppins-Bold", Helvetica;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
-}
-.header {
-    background-color: #F9A400; 
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-}
-
-.header .header-content {
-    display: flex;
-    align-items: center;
-}
-
-
-.header .header-content .label {
-    display: flex;
-    font-size: 18px; /* Tamanho da fonte do texto "ColetaApp" */
-    font-weight: bold; /* Peso da fonte do texto "ColetaApp" */
-}
-
-.label {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-.colet {
-    font-family: "Poppins-Bold", Helvetica;
-    font-weight: 600;
-    font-size: 40px;
-    letter-spacing: 0;
-    line-height: normal;
-   
-  }
-  .app {
-      font-family: "Poppins-Bold", Helvetica;
-      font-weight: 700;
-      font-size: 40px;
-      letter-spacing: 0;
-      line-height: normal;
-      color:black;
-    }
-  
-
-.feed-container {
-    border-top: 1px solid #ccc;
-    max-width: 800px;
-    margin: 16px auto;
-}
-
-

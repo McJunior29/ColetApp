@@ -1,12 +1,15 @@
 package ats.coletapp.service.routes;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ats.coletapp.exceptions.ResourceNotFoundException;
+import ats.coletapp.model.Address;
 import ats.coletapp.model.Schedules;
 import ats.coletapp.repository.SchedulesRepository;
 
@@ -21,6 +24,10 @@ public class SchedulesService {
 
     public Schedules save(Schedules schedules) {
         return schedulesRepository.save(schedules);
+    }
+    
+    public Map<Address, List<Schedules>> groupSchedulesByAddress(List<Schedules> schedules) {
+        return schedules.stream().collect(Collectors.groupingBy(schedule -> schedule.getRoutes().getAddress()));
     }
 
     public Schedules getSchedulesById(Long id) {

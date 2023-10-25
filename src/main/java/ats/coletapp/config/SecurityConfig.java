@@ -38,9 +38,17 @@ public class SecurityConfig {
                                                 .requestMatchers( "/auth/login").permitAll()
                                                 .requestMatchers("/swagger-ui/**", "/api-docs/**").permitAll()
                                                 .requestMatchers("/","/index.html","/css/**","/js/**", "/img/**").permitAll() 
+                                                .requestMatchers("/users/cadUser", "/users/recoveryPassword").permitAll()
+                                                .requestMatchers("/home", "/forgot_password").permitAll()
                                                 .requestMatchers("/cadUser").permitAll()
+                                                .requestMatchers("/routes").permitAll()
+                                                .requestMatchers("/login**").permitAll()
+                                                .requestMatchers("/add_report").permitAll()
+                                                .requestMatchers("/upload").permitAll()
+                                                .requestMatchers("/profile").permitAll()
+                                                .requestMatchers("/users/updateUser").permitAll()
                                                 .anyRequest().authenticated())
-                                .sessionManagement(session -> session
+                                .sessionManagement(session -> session   
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .authenticationProvider(authenticationProvider)
                                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

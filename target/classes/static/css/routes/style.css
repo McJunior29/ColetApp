@@ -1,0 +1,241 @@
+/* Estilos gerais */
+body {
+    font-family: "Poppins-Bold", Helvetica;
+    background-color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+  }
+
+  .img-perfil{
+    width: 50px !important;
+  }
+
+  .bg-primary-c{
+    background-color: #f9a400 !important;
+    font-size: 18px;
+    font-weight: 500 !important;;
+  }
+  
+  .header {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+  }
+  
+  .header .header-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header .header-content .label {
+    display: flex;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .logo-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    height: 70px;
+  }
+  
+  .label {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-left: 16px;
+  }
+  
+  .colet {
+    font-family: "Poppins-Bold", Helvetica;
+    font-weight: 600;
+    font-size: 40px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .app {
+    font-family: "Poppins-Bold", Helvetica;
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: 0;
+    line-height: normal;
+    color: #f9a400;
+  }
+  
+  .header-buttons {
+    display: flex;
+    align-items: center;
+    background-color: #f9a400;
+    padding: 16px;
+  }
+  
+  .button {
+    margin-left: 16px;
+  }
+  
+  .feed-container {
+    border-top: 1px solid #ccc;
+    max-width: 800px;
+    margin: 16px auto;
+  }
+  
+  .denuncia {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+  }
+  
+  .denuncia img {
+    width: 100%;
+  }
+  
+  .denuncia p {
+    margin-top: 10px;
+    padding: 16px;
+  }
+  
+  .rota {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 16px;
+  }
+  
+  /* Estilos para a imagem do feed */
+  .feed-image {
+    max-width: 100%;
+  }
+  
+  .add-button {
+    font-size: 30px;
+  }
+  
+  /* Estilos para os botões de Denúncias e Rotas */
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .button-container button {
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 8px 16px;
+    background-color: transparent;
+    color: black;
+    transition: background-color 0.3s ease;
+    font-size: 18px;
+  }
+  
+  .button-container button:hover {
+    background-color: #fff;
+  }
+  
+  /* Estilos para o formulário de adicionar denúncia */
+  .add-denuncia-form {
+    display: none;
+    max-width: 800px;
+    margin: 16px auto;
+    padding: 16px;
+  }
+  
+  .add-denuncia-form input,
+  .add-denuncia-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-denuncia-form button {
+    background-color: #f9a400;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  #add-denuncia-form button:hover {
+    background-color: #ffcc29;
+  }
+  
+  /* Estilos para o rodapé */
+  footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer-logo img {
+    max-width: 150px;
+    height: auto;
+  }
+  
+  .footer-contact,
+  .footer-links,
+  .footer-social {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .footer-contact h3,
+  .footer-links h3,
+  .footer-social h3 {
+    font-size: 20px;
+  }
+  
+  .footer-contact p {
+    margin: 10px 0;
+  }
+  
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .footer-social ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-social ul li {
+    margin: 5px 0;
+  }
+  
+  .footer-social img {
+    max-width: 24px;
+    height: auto;
+  }
+  
+  #dialog {
+    display: none;
+    /* Outros estilos do modal */
+  }

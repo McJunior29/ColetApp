@@ -1,8 +1,13 @@
 package ats.coletapp.controller.dto.person;
 
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-
-public record PersonUpdateRequest(@NotBlank @NotEmpty String name) {
+public record PersonUpdateRequest(
+        Long userId,
+        String name,
+        String email,
+        String street,
+        String number,
+        String neighborhood,
+        String password,
+        String confirmPassword
+        ) {
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ats.coletapp.controller.dto.complaint.ComplaintRequest;
 import ats.coletapp.controller.dto.person.PersonRequest;
 import ats.coletapp.model.Address;
+import ats.coletapp.model.Enum.UnidadeFederacao;
 import ats.coletapp.repository.AddressRepository;
 
 @Service
@@ -21,12 +22,12 @@ public class AddressService {
 
     public Address createAddress(PersonRequest personRequest){
         Address address = Address.builder()
-                          .cep(personRequest.cep())
-                          .country(personRequest.country())
+                          .cep("62700-000")
+                          .country("Canindé")
                           .neighborhood(personRequest.neighborhood())
                           .street(personRequest.street())
                           .number(personRequest.number())
-                          .unidadeFederacao(personRequest.unidadeFederacao())
+                          .unidadeFederacao(UnidadeFederacao.CEARA)
                           .build();
                           
         return this.save(address);

@@ -18,17 +18,14 @@ import lombok.Setter;
 @Table(name = "routes")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @EqualsAndHashCode
 public class Routes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @OneToOne
-    private Schedules schedules;
     
     @OneToOne
     private Address address;

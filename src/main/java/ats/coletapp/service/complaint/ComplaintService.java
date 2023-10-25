@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import ats.coletapp.controller.dto.complaint.ComplaintRequest;
 import ats.coletapp.exceptions.ResourceNotFoundException;
-
 import ats.coletapp.model.Complaint;
 import ats.coletapp.repository.ComplaintRepository;
 import ats.coletapp.service.address.AddressService;

@@ -1,6 +1,8 @@
 package ats.coletapp.service.person;
 
 
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +12,9 @@ import ats.coletapp.controller.dto.person.PersonResponseMapper;
 import ats.coletapp.exceptions.ConflictException;
 import ats.coletapp.exceptions.PersonNotFoundException;
 import ats.coletapp.model.Person;
-import ats.coletapp.repository.PersonRepository;
 import ats.coletapp.service.address.AddressService;
+import ats.coletapp.repository.PersonRepository;
 import jakarta.transaction.Transactional;
-
-import java.util.List;
 
 @Service
 public class PersonService {

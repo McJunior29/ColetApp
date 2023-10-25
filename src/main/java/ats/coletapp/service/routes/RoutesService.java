@@ -24,7 +24,6 @@ public class RoutesService {
         if (existingRouteOptional.isPresent()) {
             Routes existingRoute = existingRouteOptional.get();
             existingRoute.setAddress(updatedRoute.getAddress());
-            existingRoute.setSchedules(updatedRoute.getSchedules());
             return routesRepository.save(existingRoute);
         } else {
             throw new RuntimeException("Route not found with id: " + id);

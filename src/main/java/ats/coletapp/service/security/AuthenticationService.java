@@ -1,5 +1,7 @@
 package ats.coletapp.service.security;
 
+import java.util.List;
+
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,12 +14,10 @@ import ats.coletapp.controller.dto.security.RegisterPersonRequest;
 import ats.coletapp.controller.dto.security.RegisterUserRequest;
 import ats.coletapp.controller.dto.user.UserResponseDTO;
 import ats.coletapp.exceptions.ConflictException;
+import ats.coletapp.model.Enum.PermissionTypeEnum;
 import ats.coletapp.model.Person;
 import ats.coletapp.model.User;
-import ats.coletapp.model.Enum.PermissionTypeEnum;
 import ats.coletapp.repository.UserRepository;
-
-import java.util.List;
 
 @Service
 public class AuthenticationService {

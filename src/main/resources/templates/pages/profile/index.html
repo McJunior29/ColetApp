@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Cadastro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="../../../css/register/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <button class="back-button" id="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="title">Perfil</h1>
+        <div class="space"></div>
+    </header>
+
+    <div class="signup-form">
+        <form id="signup-form" method="post" action="../users/updateUser">
+            <div class="form-group">
+                <label for="nome">Nome completo</label>
+                <input type="text" id="nome" name="name" required th:value="${user.getPersonDTO().getName()}">
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required th:value="${user.getPersonDTO().getEmail()}">
+            </div>
+            <div class="form-group-street-number">
+                <div class="form-group">
+                    <label for="rua">Rua</label>
+                    <input type="text" id="rua" name="street" required th:value="${user.getPersonDTO().getAddress().getStreet()}">
+                </div>
+                <div class="form-number">
+                    <label for="numero">Número</label>
+                    <input type="text" id="numero" class="input-number" name="number" required th:value="${user.getPersonDTO().getAddress().getNumber()}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro" name="neighborhood" required th:value="${user.getPersonDTO().getAddress().getNeighborhood()}">
+            </div>
+
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmar-senha">Confirmar Senha</label>
+                <input type="password" id="confirmar-senha" name="confirmPassword" required>
+                <span id="senha-igual-aviso" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit">Cadastrar</button>
+            </div>
+            <div class="error-message" id="error-message"></div>
+            <input type="hidden" name="userId" th:value="${user.getId()}">
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const senhaInput = document.getElementById("senha");
+            const confirmarSenhaInput = document.getElementById("confirmar-senha");
+            const senhaIgualAviso = document.getElementById("senha-igual-aviso");
+    
+
+            confirmarSenhaInput.addEventListener("keyup", function() {
+                if (senhaInput.value === confirmarSenhaInput.value) {
+                    senhaIgualAviso.textContent = ""; 
+                } else {
+                    senhaIgualAviso.textContent = "As senhas não coincidem.";
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

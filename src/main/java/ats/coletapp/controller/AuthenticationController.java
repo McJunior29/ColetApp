@@ -1,17 +1,14 @@
 package ats.coletapp.controller;
 
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
-
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import ats.coletapp.controller.dto.security.AuthenticationRequest;
 import ats.coletapp.controller.dto.security.AuthenticationResponse;
@@ -20,6 +17,8 @@ import ats.coletapp.model.Complaint;
 import ats.coletapp.model.Enum.PermissionTypeEnum;
 import ats.coletapp.service.complaint.ComplaintService;
 import ats.coletapp.service.security.AuthenticationService;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 
 
@@ -44,11 +43,16 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public String authenticate(AuthenticationRequest request, Model model) {
-        AuthenticationResponse auth = authService.authenticate(request);
-        List<Complaint> complaints = complaintService.getAllComplaint();
-        model.addAttribute("listComplaints", complaints); 
-        return "pages/home/index";
+    public String authenticate(AuthenticationRequest request, Model model, HttpSession session) {
+        try {
+            AuthenticationResponse auth = authService.authenticate(request);
+            List<Complaint> complaints = complaintService.getAllComplaint();
+            session.setAttribute("auth", auth);
+            session.setAttribute("listComplaints", complaints);
+            return "redirect:/home";
+        } catch (AuthenticationCredentialsNotFoundException e) {
+            model.addAttribute("erro", "Credenciais inválidas!");
+            return "redirect:/";
+        }
     }
-
 }
