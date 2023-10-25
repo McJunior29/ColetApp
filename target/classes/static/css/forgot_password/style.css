@@ -17,7 +17,6 @@ body {
     border-radius: 8px;
     text-align: left;
     width: 400px;
-    display: block; /* Inicialmente oculto */
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -31,7 +30,6 @@ body {
     border-radius: 8px;
     text-align: center;
     width: 400px;
-    display: none; /* Inicialmente oculto */
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -45,7 +43,7 @@ body {
     border-radius: 8px;
     text-align: left;
     width: 400px;
-    display: none; /* Inicialmente oculto */
+
     justify-content: center;
     align-items: center;
     flex-direction: column;

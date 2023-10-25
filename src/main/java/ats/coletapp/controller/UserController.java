@@ -5,12 +5,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ats.coletapp.controller.dto.person.PersonRequest;
 import ats.coletapp.controller.dto.person.PersonUpdateRequest;
 import ats.coletapp.controller.dto.security.AuthenticationRequest;
 import ats.coletapp.controller.dto.security.AuthenticationResponse;
-import ats.coletapp.controller.dto.user.UserRecoveryLoginDTO;
+import ats.coletapp.exceptions.ResourceNotFoundException;
+import ats.coletapp.model.User;
 import ats.coletapp.service.security.AuthenticationService;
 import ats.coletapp.service.user.UserService;
 import jakarta.mail.MessagingException;
@@ -34,7 +36,7 @@ public class UserController {
         try {
             this.userService.createUser(request);
             return "redirect:/";  
-        } catch (Exception e) { 
+        } catch (ResourceNotFoundException e) { 
             model.addAttribute("erro", "Email inválido!");
             return "redirect:/cadUser";
         }      
@@ -56,8 +58,40 @@ public class UserController {
     }
 
     @PostMapping("/recoveryPassword")
-    public String recoveryPassword(@ModelAttribute UserRecoveryLoginDTO userRecoveryLoginDTO) throws MessagingException{
-        this.userService.userRecoveryPassword(userRecoveryLoginDTO);
+    public String recoveryPassword(@RequestParam("email") String email, Model model) throws MessagingException{
+
+        do {
+            if (this.userService.userRecoveryPassword(email)) {
+                return "redirect:/pin";
+            } else {
+                model.addAttribute("erro", "Email inválido");
+                return "redirect:/";
+            }
+        } while (!this.userService.userRecoveryPassword(email));
+    }
+
+    @PostMapping("/verificationCode")
+    public String verificationCode(@RequestParam("verificationCode") String verificationCode, Model model,HttpSession session ){
+        try{
+        User user = this.userService.verificationCode(verificationCode);
+        session.setAttribute("user", user);
+
+        return "pages/forgot_password/password";
+        }catch(ResourceNotFoundException e ){
+            model.addAttribute("erro", "Codigo inválido");
+            return "pages/forgot_password/pin";
+        }
+    }
+
+    @PostMapping("/updatePassword")
+    public String updatePassword(@RequestParam("password") String password, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/";
+        }
+
+        User userUpdate = this.userService.updatePassword(user, password);
+        session.setAttribute("user", userUpdate);
         return "redirect:/";
     }
 }

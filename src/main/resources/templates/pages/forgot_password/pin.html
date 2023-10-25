@@ -10,23 +10,15 @@
     
 </head>
 <body>
-    <div class="email-container">
-        <div class="recovery-box">
-                <h1>Esqueceu sua senha?</h1>
-                <p>Digite seu email</p>
-            <div class="recovery-form">
-                <form id="recovery-form" method="post" action="../users/recoveryPassword">
-                    <div class="form-group">
-                        <input class="w-100" type="email" id="email" name="email" required>
-                        <div th:if="${erro}" class="alert alert-danger">
-                            <p>Email inválido!</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" id="send-code-button">Enviar Código</button>
-                    </div>
-                </form>
-            </div>
+
+    <div class="recovery-code-container" id="recovery-code-container">
+        <div class="recovery-code-box">
+            <h2>Digite o código</h2>
+            <p>Um código de 6 dígitos foi enviado para seu e-mail verifique e digite abaixo</p>
+            <form action="/users/verificationCode" method="post">
+                <input type="text" class="w-100 mb-2" id="recovery-code-input" name="verificationCode" placeholder="Digite o código">
+                <button type="submit" id="verify-code-button">Verificar</button>
+            </form>
         </div>
     </div>
 
@@ -49,19 +41,6 @@ const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 // Regex para validar um código de 8 dígitos
 const codeRegex = /^\d{8}$/;
 
-// Adiciona um ouvinte de evento para o botão "Enviar Código"
-sendCodeButton.addEventListener("click", function () {
-    // Valida o formato de email
-    if (!emailRegex.test(emailInput.value)) {
-        alert("Por favor, insira um email válido.");
-        return;
-    }
-
-    // Esconde o contêiner de e-mail
-    emailContainer.style.display = "none";
-    // Mostra o contêiner de código PIN
-    pinContainer.style.display = "block";
-});
 
 // Adiciona um ouvinte de evento para o botão "Verificar"
 verifyCodeButton.addEventListener("click", function () {

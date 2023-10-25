@@ -42,6 +42,11 @@ public class RedirectionController {
         return "pages/register/index";
     }
 
+    @GetMapping("/pin")
+    public String pin() {   
+        return "pages/forgot_password/pin";
+    }
+
     @GetMapping("/add_report")
     public String addReport(HttpSession session) {
         AuthenticationResponse auth = (AuthenticationResponse) session.getAttribute("auth");

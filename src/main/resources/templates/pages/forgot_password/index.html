@@ -18,6 +18,9 @@
                 <form id="recovery-form" method="post" action="../users/recoveryPassword">
                     <div class="form-group">
                         <input class="w-100" type="email" id="email" name="email" required>
+                        <div th:if="${erro}" class="alert alert-danger">
+                            <p>Email inválido!</p>
+                        </div>
                     </div>
                     <div class="form-group">
                         <button type="submit" id="send-code-button">Enviar Código</button>
@@ -26,28 +29,7 @@
             </div>
         </div>
     </div>
-    <div class="recovery-code-container" id="recovery-code-container">
-        <div class="recovery-code-box">
-            <h2>Digite o código</h2>
-            <p>Um código de 6 dígitos foi enviado para seu e-mail verifique e digite abaixo</p>
-            <input type="text" id="recovery-code-input" placeholder="Digite o código">
-            <button id="verify-code-button">Verificar</button>
-        </div>
-    </div>
-    <div class="new-password-container" id="new-password-container">
-        <div class="new-password-box">
-            <h2>Digite sua nova senha</h2>
-            <div class="form-group">
-                <label for="new-password">Nova Senha</label>
-                <input type="password" id="new-password" name="new-password" required>
-            </div>
-            <div class="form-group">
-                <label for="confirm-new-password">Confirmar Nova Senha</label>
-                <input type="password" id="confirm-new-password" name="confirm-new-password" required>
-            </div>
-            <button id="set-new-password-button">Alterar senha</button>
-        </div>
-    </div>
+
     <script>
         // Obtém os elementos do DOM
 const emailContainer = document.querySelector(".email-container");

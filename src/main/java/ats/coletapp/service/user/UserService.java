@@ -12,10 +12,6 @@ import org.springframework.stereotype.Service;
 
 import ats.coletapp.controller.dto.person.PersonRequest;
 import ats.coletapp.controller.dto.person.PersonUpdateRequest;
-import ats.coletapp.controller.dto.user.UserRecoveryLoginDTO;
-import ats.coletapp.controller.dto.user.UserRecoveryPasswordDTO;
-import ats.coletapp.controller.dto.user.UserResponse;
-import ats.coletapp.controller.dto.user.VerificationCodeDTO;
 import ats.coletapp.exceptions.ConfirmPasswordException;
 import ats.coletapp.exceptions.ConflictException;
 import ats.coletapp.exceptions.ResourceNotFoundException;
@@ -87,10 +83,10 @@ public class UserService{
     }
 
 
-    public void userRecoveryPassword(UserRecoveryLoginDTO userRecoveryLoginDTO ) throws MessagingException {
+    public boolean userRecoveryPassword(String userRecoveryLoginDTO ) throws MessagingException {
         
         try{
-        User user = findByLogin(userRecoveryLoginDTO.getLogin());
+        User user = findByLogin(userRecoveryLoginDTO);
         String email = user.getLogin();
         MimeMessage mimeMessage = emailSender.createMimeMessage();
 
@@ -117,27 +113,26 @@ public class UserService{
         helper.setTo(email);
         helper.setSubject("Email para recuperação de Senha");
         helper.setText("", htmlContent);
-        helper.setFrom("coletapp9@gmail.com");
+        helper.setFrom("testes.caninde@darmlabs.ifce.edu.br");
         
         emailSender.send(mimeMessage);
 
+        return true;
             
         }catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException("Email not sent");
         }
-
     }
 
-    public UserResponse verificationCode(VerificationCodeDTO code){
-        return this.findByVerificationCode(code.getCode());
+    public User verificationCode(String code){
+        return this.findByVerificationCode(code);
     }
 
-    public UserResponse findByVerificationCode(String code) {
+    public User findByVerificationCode(String code) {
         User user = this.userRepository.findByVerificationCode(code)
         .orElseThrow(() -> new ResourceNotFoundException("No user with that verification code was found in the database, " +
                         "check the registered users."));
-        UserResponse response = new UserResponse(user.getId());
-        return response;
+        return user;
     }
 
     @Transactional
@@ -223,16 +218,14 @@ public class UserService{
     }
 
 
-    public User updatePassword(UserRecoveryPasswordDTO passwordDTO) {
+    public User updatePassword(User user, String password) {
 
-        if(!passwordDTO.getPassword().equals(passwordDTO.getSecondPassword())){
-            throw new ConflictException("Different passwords");
-        }
-        User user = this.searchByID(passwordDTO.getUserId());
-        user.setPassword(passwordEncoder.encode(passwordDTO.getPassword()));
-        this.saveUser(user);
+        User userModel = this.searchByID(user.getId());
+        userModel.setPassword(passwordEncoder.encode(password));
+
+        this.saveUser(userModel);
         
-        return user;
+        return userModel;
     }
 
     public User findByPersonId(Long id) {
